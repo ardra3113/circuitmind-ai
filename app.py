@@ -7,7 +7,7 @@ app = Flask(__name__)
 # 🏠 Home route
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return "App is working perfectly 🚀"
 
 # 🔍 Example route (you can modify for your project)
 @app.route("/predict", methods=["POST"])
