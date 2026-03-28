@@ -9,14 +9,16 @@ def home():
     return render_template("index.html")
 
 
-# ⚡ Diagnose route (matches your HTML fetch "/diagnose")
+# ⚡ Diagnose route
 @app.route("/diagnose", methods=["POST"])
 def diagnose():
     try:
         data = request.get_json()
         problem = data.get("problem", "").lower()
 
-        # 🔍 Simple logic (replace with your AI later)
+        # 🔍 Logic for different inputs
+
+        # LED issues
         if "led" in problem:
             diagnosis = "LED not glowing properly"
             causes = [
@@ -26,6 +28,7 @@ def diagnose():
             ]
             solution = "Check polarity, use proper resistor (220Ω), replace LED if needed"
 
+        # No output
         elif "no output" in problem:
             diagnosis = "No output detected"
             causes = [
@@ -35,11 +38,42 @@ def diagnose():
             ]
             solution = "Check power supply and wiring connections"
 
+        # Clipping
+        elif "clipping" in problem:
+            diagnosis = "Signal clipping detected"
+            causes = [
+                "Input signal too large",
+                "Op-amp saturation",
+                "Insufficient supply voltage"
+            ]
+            solution = "Reduce input amplitude or increase supply voltage"
+
+        # Fluctuating signal / noise
+        elif "fluctuating" in problem or "noise" in problem:
+            diagnosis = "Unstable or noisy signal"
+            causes = [
+                "Loose connections",
+                "Electrical interference",
+                "Improper grounding"
+            ]
+            solution = "Secure connections and ensure proper grounding"
+
+        # Diode issues
+        elif "diode" in problem:
+            diagnosis = "Diode not functioning properly"
+            causes = [
+                "Reverse bias connection",
+                "Diode damaged",
+                "Incorrect voltage applied"
+            ]
+            solution = "Check diode orientation and replace if faulty"
+
+        # General fallback
         else:
             diagnosis = "General circuit issue detected"
             causes = [
                 "Loose connections",
-                "Wrong component values",
+                "Incorrect component values",
                 "Short circuit"
             ]
             solution = "Inspect circuit carefully and verify all components"
