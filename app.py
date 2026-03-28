@@ -68,15 +68,14 @@ def diagnose():
             ]
             solution = "Check diode orientation and replace if faulty"
 
-        # General fallback
+        # ❗ Unknown issue (NEW)
         else:
-            diagnosis = "General circuit issue detected"
+            diagnosis = "Unknown issue"
             causes = [
-                "Loose connections",
-                "Incorrect component values",
-                "Short circuit"
+                "Input not recognized",
+                "Try using keywords like LED, diode, clipping, etc."
             ]
-            solution = "Inspect circuit carefully and verify all components"
+            solution = "Please provide more specific circuit problem details"
 
         return jsonify({
             "diagnosis": diagnosis,
@@ -92,6 +91,6 @@ def diagnose():
         })
 
 
-# 🚀 Run app (for Render deployment)
+# 🚀 Run app (for deployment)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
